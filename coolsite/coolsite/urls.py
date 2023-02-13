@@ -13,9 +13,10 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.conf.urls.static import static
 from django.contrib import admin
 
-
+from coolsite import settings
 from project.views import *
 from django.urls import path,include
 
@@ -25,6 +26,8 @@ urlpatterns = [
 
 
 ]
+if settings.DEBUG:
+    urlpatterns+= static(settings.MEDIA_URL,documents_root=settings.MEDIA_ROOT)
 handler404 = pageNotFound
 handler403 = forbidden
 handler500 = serverError
