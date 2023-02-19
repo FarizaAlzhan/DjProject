@@ -3,8 +3,10 @@ from .views import *
 urlpatterns = [
 
     path('',index,name='home'),
-    path('training1/',training1),
-    path('training2/',training2)
+    path('trainingSelfDevelopment/',training1,name='training1'),
+    path('trainingPsychology',training2,name='training2'),
+    path('books',books,name='books'),
+    path('category/<int:category_id>/',show_category,name='category'),
 
 
 ]

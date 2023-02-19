@@ -1,4 +1,6 @@
 from django.db import models
+from django.urls import reverse
+
 
 # Create your models here.
 class Training1(models.Model):
@@ -16,19 +18,25 @@ class Training2(models.Model):
         photo = models.ImageField(upload_to="photos/%y/%m/%d/")
 
 
-class Books_self_development(models.Model):
-    title = models.CharField(max_length=255)
-    author = models.TextField()
-    description = models.TextField()
-    price = models.IntegerField()
-    photo = models.ImageField(upload_to="photos/%y/%m/%d/")
 
-class Books_psychology(models.Model):
+
+
+
+class Books(models.Model):
     title = models.CharField(max_length=255)
     author = models.TextField()
     description = models.TextField()
     price = models.IntegerField()
     photo = models.ImageField(upload_to="photos/%y/%m/%d/")
+    category = models.ForeignKey('Category',on_delete=models.PROTECT)
+
+class Category(models.Model):
+    name = models.CharField(max_length=100,db_index=True)
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return reverse('category', kwargs={'category_id': self.pk})
 
 
 class Training_manager1(models.Model):

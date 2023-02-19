@@ -9,15 +9,19 @@ def index(request):
 
 def training1(request):
     t1 = Training1.objects.all()
-    t2 = Training1.objects.all()
     return render(request,'project/training1.html',{'t1':t1})
 def training2(request):
     t2 = Training2.objects.all()
     return render(request,'project/training2.html',{'t2':t2})
+def books(request):
+    b = Books.objects.all()
+    categories = Category.objects.all()
+    return render(request,'project/books.html',{'b':b,'categories': categories ,'category_selected':0 })
 
-
-
-
+def show_category(request,category_id):
+    b=Books.objects.filter(category_id=category_id)
+    categories = Category.objects.all()
+    return render(request, 'project/books.html', {'b': b, 'categories': categories, 'category_selected': category_id})
 
 
 def pageNotFound(request,exception):
