@@ -10,6 +10,9 @@ def index(request):
 def training1(request):
     t1 = Training1.objects.all()
     return render(request,'project/training1.html',{'t1':t1})
+def training_manager1(request):
+    tr1 = Training_manager1.objects.all()
+    return render(request,'project/training_manager1.html',{'tr1':tr1})
 def training2(request):
     t2 = Training2.objects.all()
     return render(request,'project/training2.html',{'t2':t2})
