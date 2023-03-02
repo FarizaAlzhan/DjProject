@@ -27,7 +27,26 @@
         <td class="leftcol">
             {% if p.photo %}
             <img src="{{p.photo.url }}"
-        width="250" height="200" >
+        width="250" height="250" >
+        {% endif %}
+        </td>
+        <td valign="top"><h4>{{p.name}}</h4>
+            <p>{{p.info}}</p>
+            <h5>{{p.speciality}}</h5>
+            <p>Номер телефона: {{p.number}}</p>
+        </td>
+       </tr>
+      </table>
+    <hr >
+
+    {% endfor %}
+    {% for p in tr2 %}
+         <table width="100%" cellspacing="0" cellpadding="0">
+       <tr>
+        <td class="leftcol">
+            {% if p.photo %}
+            <img src="{{p.photo.url }}"
+        width="250" height="180" >
         {% endif %}
         </td>
         <td valign="top"><h4>{{p.name}}</h4>

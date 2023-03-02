@@ -12,19 +12,19 @@ def training1(request):
     return render(request,'project/training1.html',{'t1':t1})
 def training_manager1(request):
     tr1 = Training_manager1.objects.all()
-    return render(request,'project/training_manager1.html',{'tr1':tr1})
+    tr2 = Training_manager2.objects.all()
+    return render(request,'project/training_manager1.html',{'tr1':tr1,'tr2':tr2})
 def training2(request):
     t2 = Training2.objects.all()
     return render(request,'project/training2.html',{'t2':t2})
 def books(request):
     b = Books.objects.all()
-    categories = Category.objects.all()
-    return render(request,'project/books.html',{'b':b,'categories': categories ,'category_selected':0 })
+    return render(request,'project/books.html',{'b':b,'category_selected':0 })
 
 def show_category(request,category_id):
     b=Books.objects.filter(category_id=category_id)
-    categories = Category.objects.all()
-    return render(request, 'project/books.html', {'b': b, 'categories': categories, 'category_selected': category_id})
+
+    return render(request, 'project/books.html', {'b': b,  'category_selected': category_id})
 
 
 def pageNotFound(request,exception):
