@@ -60,6 +60,9 @@ class Motivation(models.Model):
     content = models.TextField()
     author = models.TextField(blank=True)
 
-
+def str(self):
+        return self.title
+def get_absolute_url(self):
+        return reverse('post', kwargs={'post_id': self.pk})
 
 

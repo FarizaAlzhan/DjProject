@@ -8,6 +8,7 @@ urlpatterns = [
     path('trainingPsychology',training2,name='training2'),
     path('books',books,name='books'),
     path('category/<int:category_id>/',show_category,name='category'),
+    # path('post/<int:post_id>/',show_post,name='post'),
 
 
 ]
