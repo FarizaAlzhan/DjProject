@@ -17,4 +17,4 @@ def show_categories(sort=None,category_selected=0):
     else:
         categs = Category.objects.order_by(sort)
 
-    return {"categs":categs, "category_selected":category_selected}
+    return {"categs":categs, "category_selected": category_selected}
