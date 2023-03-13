@@ -1,16 +1,49 @@
 {% extends 'project/navbar.html' %}
 {% block content %}
 
-
+ <head>
+    <meta charset="UTF-8" />
  <style>
-   body {
 
-    background-size: 110%;
-   }
+    .holder{
+        position:relative;
+
+        }
+        .block{
+        position:absolute;
+        left:0;
+        bottom:0;
+        right:0;
+        background:rgba(255,255,255, 0.7);
+        padding:20px;
+        display:none;
+    }
+    .holder:hover .block{
+       display:block;
+    }
+
+
   </style>
-<body background="https://static13.tgcnt.ru/posts/_0/ef/ef89a0070c286d8a23c3311050b0b419.jpg">
-<h3> &nbsp Улучшай свою жизнь вместе с supportme !  </h3>
-<img src="https://static13.tgcnt.ru/posts/_0/ef/ef89a0070c286d8a23c3311050b0b419.jpg" class="rounded " alt="img1" width="600px">
+  </head>
+
+
+<body background="">
+<div class="container-fluid">
+    <h3> &nbsp Улучшай свою жизнь вместе с supportme!  </h3>
+ <img src="https://i.pinimg.com/564x/0c/c1/10/0cc110f07818aabf6b6eafd5f719c32a.jpg" class='rounded' alt="img1" width="227px">
+    <img src="https://i.pinimg.com/originals/6f/61/82/6f61824478a9f24cd8adcc0c66fd78de.jpg" class="rounded " alt="img2" width="254x">
+    <img src="https://i.pinimg.com/originals/47/a7/8e/47a78e573d3951de3163ef3d6b2a915a.jpg" class="rounded " alt="img3" width="254x">
+    <img src="https://i.pinimg.com/564x/21/ef/44/21ef4420de7f5b149b4739d0f3989c1c.jpg" class="rounded " alt="img4" width="256">
+
+
+<div class='holder'>
+    <img src="https://i.pinimg.com/564x/d6/a6/92/d6a692fc1e0489955e2b4ed4ae742c76.jpg" class="rounded " alt="img5" width="400px">
+    <div class='block bg-transparent' >
+        <h3 style="color:white">Развивайся вместе с нами</h3>
+    </div>
+</div>
+
+</div>
 
 </body>
 

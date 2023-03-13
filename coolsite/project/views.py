@@ -7,6 +7,9 @@ from .models import *
 def index(request):
     return render(request,'project/mainpage.html')
 
+def aboutUs(request):
+    return render(request,'project/aboutUs.html')
+
 def training1(request):
     t1 = Training1.objects.all()
     return render(request,'project/training1.html',{'t1':t1})
