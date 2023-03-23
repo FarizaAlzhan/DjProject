@@ -10,7 +10,46 @@
 
     background-size: 110%;
    }
+       .list-pages {
+        text-align: center;
+        margin: 0 0 20px 0;
+    }
+    .list-pages ul {
+        margin: 20px 0 0 0;
+        padding: 0;
+        list-style: none;
+    }
+    .list-pages ul li {
+        display: inline-block;
+        margin: 0 20px 0 0;
+    }
+    .list-pages a {
+        color: #000;
+        font-size: 24px;
+        text-decoration: none;
+    }
+    .list-pages .page-num, .page-num-selected {
+        display: inline-block;
+        width: 60px;
+        height: 44px;
+        padding: 16px 0 0 0;
+        border: 1px solid #d0d0d0;
+        border-radius: 30px;
+    }
+    .list-pages .page-num:hover {
+        box-shadow: 3px 3px 1px #d0d0d0;
+    }
+    .list-pages .page-num-selected {
+        border: none;
+        color: #000;
+        font-size: 20px;
+    }
+    .list-pages .page-num-selected:hover {
+        box-shadow: none;
+    }
   </style>
+    <title>{{title}}</title>
+
 
 <body background="https://catherineasquithgallery.com/uploads/posts/2021-02/1613710540_84-p-minimalistichnii-fon-dlya-prezentatsii-112.jpg">
 
@@ -27,6 +66,8 @@
   {% endif %}
 
 {% show_categories  '-name' category_selected %}
+
+
       </ul>
   </div>
 </nav>
@@ -49,6 +90,15 @@
       </table><hr>
 
     {% endfor %}
+<nav class="list-pages">
+    <ul>
+        {% for p in paginator.page_range %}
+        <li class="page-num">
+            <a href="?page={{ p }}">{{ p }}</a>
+        </li>
+        {% endfor %}
+    </ul>
+</nav>
 </ul>
 
 {% endblock %}

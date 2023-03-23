@@ -11,9 +11,19 @@
     height: 2px; /* Толщина линии */
    }
   </style>
+<center>
+{% if next %}
+    {% if user.is_authentication %}
+        <a type="button" href="{% url 'addtraining1' %}">Добавить тренинг</a>
+    {% else %}
+        <p> </p>
+    {% endif %}
+{% endif %}
+
+</center>
 <br>
 <ul>
-    {% for p in t1 %}
+    {% for p in object_list %}
          <table width="100%" cellspacing="0" cellpadding="0">
        <tr>
         <td class="leftcol">

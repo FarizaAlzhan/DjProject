@@ -3,12 +3,14 @@ from .views import *
 urlpatterns = [
 
     path('',index,name='home'),
-    path('trainingSelfDevelopment/',training1,name='training1'),
+    path('trainingSelfDevelopment/',Training1.as_view(),name='training1'),
     path('trainingManager1/',training_manager1,name='training_manager1'),
     path('trainingPsychology',training2,name='training2'),
-    path('books',books,name='books'),
+    path('books',AllBooks.as_view(),name='books'),
     path('aboutUs',aboutUs,name='aboutUs'),
-    path('category/<int:category_id>/',show_category,name='category'),
+    path('addtraining1/', AddTrainings1.as_view(), name='addtraining1'),
+    path('category/<slug:category_slug>/',BooksCategory.as_view( ),name='category'),
+
     # path('post/<int:post_id>/',show_post,name='post'),
 
 

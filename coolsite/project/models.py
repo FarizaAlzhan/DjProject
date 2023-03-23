@@ -17,11 +17,6 @@ class Training2(models.Model):
         training_manager = models.CharField(max_length=255)
         photo = models.ImageField(upload_to="photos/%y/%m/%d/")
 
-
-
-
-
-
 class Books(models.Model):
     title = models.CharField(max_length=255)
     author = models.TextField()
@@ -32,11 +27,12 @@ class Books(models.Model):
 
 class Category(models.Model):
     name = models.CharField(max_length=100,db_index=True)
+    slug = models.SlugField(max_length=255,null=True)
     def __str__(self):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('category', kwargs={'category_id': self.pk})
+        return reverse('category', kwargs={'category_slug': self.slug})
 
 
 class Training_manager1(models.Model):
