@@ -1,4 +1,7 @@
+from django.contrib.auth import logout, login
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.views import LoginView
 from django.http import HttpResponse, HttpResponseNotFound, HttpResponseForbidden, HttpResponseServerError, \
     HttpResponseBadRequest
 from django.shortcuts import render, redirect
@@ -23,6 +26,7 @@ class Training1(ListView):
 # def training1(request):
 #     t1 = Training1.objects.all()
 #     return render(request,'project/training1.html',{'t1':t1})
+
 def training_manager1(request):
     tr1 = Training_manager1.objects.all()
     tr2 = Training_manager2.objects.all()
@@ -40,6 +44,10 @@ class AllBooks(DataMixin,ListView):
         context = super().get_context_data(**kwargs)
         c_def = self.get_user_context(title="Книги")
         return dict(list(context.items()) + list(c_def.items()))
+
+    def get_queryset(self):
+        return Books.objects.all().select_related('category')
+
 # def books(request):
 #     b = Books.objects.all()
 #     return render(request,'project/books.html',{'b':b,'category_selected':0 })
@@ -50,7 +58,7 @@ class BooksCategory(DataMixin,ListView):
     context_object_name = 'b'
 
     def get_queryset(self):
-        return Books.objects.filter(category__slug=self.kwargs['category_slug'])
+        return Books.objects.filter(category__slug=self.kwargs['category_slug']).select_related('category')
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -64,6 +72,7 @@ class AddTrainings1(LoginRequiredMixin, DataMixin,CreateView):
     template_name = 'project/addtraining1.html'
     success_url = reverse_lazy('training1')
     login_url = reverse_lazy('training1')
+
     #raise_exception = True
     def get_context_data(self,*,object_list = None, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -86,6 +95,33 @@ class AddTrainings1(LoginRequiredMixin, DataMixin,CreateView):
 #         form = AddTraining1Form()
 #     return render(request,'project/addtraining1.html', {'form': form})
 
+class RegisterUser(DataMixin,CreateView):
+    form_class = RegisterUserForm
+    template_name = 'project/register.html'
+    success_url = reverse_lazy('login')
+
+    def get_context_data(self,*,object_list = None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        c_def = self.get_user_context(title="Регистрация")
+        return dict(list(context.items()) + list(c_def.items()))
+    def form_valid(self, form):
+        user = form.save()
+        login(self.request,user)
+        return redirect('home')
+class LoginUser(DataMixin,LoginView):
+    form_class = LoginUserForm
+    template_name = 'project/login.html'
+
+    def get_context_data(self,*,object_list = None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        c_def = self.get_user_context(title="Авторизация")
+        return dict(list(context.items()) + list(c_def.items()))
+    def get_success_url(self):
+        return reverse_lazy('home')
+
+def logout_user(request):
+    logout(request)
+    return redirect('login')
 
 def pageNotFound(request,exception):
     return HttpResponseNotFound('<h1>Страница не найдена </h1>')

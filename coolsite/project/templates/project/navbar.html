@@ -43,6 +43,21 @@
           <li class="nav-item">
             <a class="nav-link" href="{% url 'books' %}">Подбор книг</a>
           </li>
+          {% if request.user.is_authenticated %}
+          <li class="nav-item"  >
+            <a class="nav-link" href="{% url 'login' %}" style="color:green"> {{user.username}}</a>
+          </li>
+          <li class="nav-item" >
+            <a class="nav-link" href="{% url 'logout' %}"> Выйти</a>
+          </li>
+          {% else %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'login' %}"> Войти</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'register' %}">Зарегистрироваться </a>
+          </li>
+          {% endif %}
 
 
       </ul>

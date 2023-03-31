@@ -12,14 +12,11 @@
    }
   </style>
 <center>
-{% if next %}
-    {% if user.is_authentication %}
-        <a type="button" href="{% url 'addtraining1' %}">Добавить тренинг</a>
-    {% else %}
-        <p> </p>
-    {% endif %}
-{% endif %}
-
+        {% if request.user.is_authenticated %}
+           <a type="button" href="{% url 'addtraining1' %}">Добавить тренинг</a>
+        {% else %}
+            <p> </p>
+        {% endif %}
 </center>
 <br>
 <ul>
