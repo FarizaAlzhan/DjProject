@@ -6,7 +6,7 @@ from django.http import HttpResponse, HttpResponseNotFound, HttpResponseForbidde
     HttpResponseBadRequest
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
-from django.views.generic import ListView, CreateView
+from django.views.generic import ListView, CreateView, FormView
 from .models import *
 from .forms import *
 from .utils import *
@@ -122,6 +122,20 @@ class LoginUser(DataMixin,LoginView):
 def logout_user(request):
     logout(request)
     return redirect('login')
+
+class ContactFormView(DataMixin, FormView):
+    form_class = ContactForm
+    template_name = 'project/contact.html'
+    success_url = reverse_lazy('home')
+    def get_context_data(self,*,object_list = None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        c_def = self.get_user_context(title="Обратная связь")
+        return dict(list(context.items()) + list(c_def.items()))
+
+    def form_valid(self, form):
+        print(form.cleaned_data)
+        return redirect('home')
+
 
 def pageNotFound(request,exception):
     return HttpResponseNotFound('<h1>Страница не найдена </h1>')
