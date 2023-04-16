@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'debug_toolbar',
     'captcha',
-    'project.apps.ProjectConfig'
+    'project.apps.ProjectConfig',
+    'rest_framework' ,
 ]
 
 MIDDLEWARE = [

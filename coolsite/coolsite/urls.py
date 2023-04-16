@@ -24,6 +24,11 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('captcha/', include('captcha.urls')),
     path('',include('project.urls')),
+    path('api/v1/booklist/',BookAPIView.as_view()),
+    path('api/v1/booklist/<int:pk>/',BookAPIView.as_view()),
+
+    path('api/v1/training1list/',Training1APIView.as_view()),
+    path('api/v1/training2list/',Training2APIView.as_view())
 
 
 ]
