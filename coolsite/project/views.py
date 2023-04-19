@@ -8,15 +8,18 @@ from django.http import HttpResponse, HttpResponseNotFound, HttpResponseForbidde
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, FormView
+from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from .models import *
 from .forms import *
-from .serializers import BookSerializer, Training1Serializer
+from .serializers import *
 from .utils import *
 from  django.contrib.auth.mixins import LoginRequiredMixin
-from rest_framework import generics
+from rest_framework import generics, viewsets
+
+
 def index(request):
     return render(request,'project/mainpage.html')
 
@@ -142,50 +145,36 @@ class ContactFormView(DataMixin, FormView):
         print(form.cleaned_data)
         return redirect('home')
 
-class BookAPIView(APIView):
-    def get(self,request):
-        b = Books.objects.all()
-        return Response({'books': BookSerializer(b, many=True).data})
 
-    def post(self,request):
-        serializer = BookSerializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-        return Response({'post': serializer.data})
-    def put(self,request,*args, **kwargs):
-        pk = kwargs.get("pk", None)
+class BookViewSet(viewsets.ModelViewSet):
+    queryset = Books.objects.all()
+    serializer_class = BookSerializer
+
+    def get_queryset(self):
+        pk = self.kwargs.get("pk")
+
         if not pk:
-            return Response({"error":"Method PUT not allowed"})
+            return Books.objects.all()[:3]
+        return Books.objects.filter(pk=pk)
 
-        try:
-            instance = Books.objects.get(pk=pk)
-        except:
-            return Response({"error": "Object does not exists"})
+    @action(methods=['get'], detail=True)
+    def category(self,request,pk=None):
+        cats = Category.objects.get(pk=pk)
+        return Response({'cats': cats.name})
 
-        serializer = BookSerializer(data=request.data, instance=instance)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-        return Response({"post" : serializer.data})
-
-    def delete(self, request, *args, **kwargs):
-        pk = kwargs.get("pk", None)
-        if not pk:
-            return Response({"error": "Method DELETE not allowed"})
-        try:
-            book = Books.objects.get(pk=pk)
-
-        except:
-            return Response({"error": "Object does not exists"})
-        book.delete()
-        return Response({"post": "deleted post " })
-
-class Training1APIView(generics.ListAPIView):
+class Training1ViewSet(viewsets.ModelViewSet):
     queryset = Training1.objects.all()
     serializer_class = Training1Serializer
 
-class Training2APIView(generics.ListAPIView):
+class Training2ViewSet(viewsets.ModelViewSet):
     queryset = Training2.objects.all()
-    serializer_class = Training1Serializer
+    serializer_class = Training2Serializer
+class Training_manager1ViewSet(viewsets.ModelViewSet):
+    queryset = Training_manager1.objects.all()
+    serializer_class = Training_manager1Serializer
+class Training_manager2ViewSet(viewsets.ModelViewSet):
+    queryset = Training_manager2.objects.all()
+    serializer_class = Training_manager2Serializer
 
 def pageNotFound(request,exception):
     return HttpResponseNotFound('<h1>Страница не найдена </h1>')
