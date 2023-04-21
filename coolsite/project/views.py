@@ -8,7 +8,9 @@ from django.http import HttpResponse, HttpResponseNotFound, HttpResponseForbidde
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, FormView
+from rest_framework.authentication import TokenAuthentication
 from rest_framework.decorators import action
+from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAdminUser
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -146,10 +148,18 @@ class ContactFormView(DataMixin, FormView):
     def form_valid(self, form):
         print(form.cleaned_data)
         return redirect('home')
+
+class BookAPIListPagination(PageNumberPagination):
+    page_size = 3
+    page_size_query_param = 'page_size'
+    max_page_size = 1000
+
 class BookAPIList(generics.ListAPIView):
     queryset = Books.objects.all()
     serializer_class = BookSerializer
     permission_classes = (IsAuthenticatedOrReadOnly,)
+    pagination_class = BookAPIListPagination
+    # permission_classes = (TokenAuthentication,)
 
 class BookAPICreate(generics.CreateAPIView):
     queryset = Books.objects.all()
