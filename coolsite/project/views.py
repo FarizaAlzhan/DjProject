@@ -9,11 +9,13 @@ from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, FormView
 from rest_framework.decorators import action
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAdminUser
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from .models import *
 from .forms import *
+from .permissions import IsAdminOrReadOnly, IsOwnerOrReadOnly
 from .serializers import *
 from .utils import *
 from  django.contrib.auth.mixins import LoginRequiredMixin
@@ -144,37 +146,59 @@ class ContactFormView(DataMixin, FormView):
     def form_valid(self, form):
         print(form.cleaned_data)
         return redirect('home')
-
-
-class BookViewSet(viewsets.ModelViewSet):
+class BookAPIList(generics.ListAPIView):
     queryset = Books.objects.all()
     serializer_class = BookSerializer
+    permission_classes = (IsAuthenticatedOrReadOnly,)
 
-    def get_queryset(self):
-        pk = self.kwargs.get("pk")
+class BookAPICreate(generics.CreateAPIView):
+    queryset = Books.objects.all()
+    serializer_class = BookSerializer
+    permission_classes = (IsAdminOrReadOnly,)
+class BookAPIUpdate(generics.RetrieveUpdateAPIView):
+    queryset = Books.objects.all()
+    serializer_class = BookSerializer
+    permission_classes = (IsOwnerOrReadOnly,)
 
-        if not pk:
-            return Books.objects.all()[:3]
-        return Books.objects.filter(pk=pk)
+class BookAPIDestroy(generics.RetrieveDestroyAPIView):
+    queryset = Books.objects.all()
+    serializer_class = BookSerializer
+    permission_classes = (IsAdminOrReadOnly,)
 
-    @action(methods=['get'], detail=True)
-    def category(self,request,pk=None):
-        cats = Category.objects.get(pk=pk)
-        return Response({'cats': cats.name})
+
+# class BookViewSet(viewsets.ModelViewSet):
+#     queryset = Books.objects.all()
+#     serializer_class = BookSerializer
+#
+#     def get_queryset(self):
+#         pk = self.kwargs.get("pk")
+#
+#         if not pk:
+#             return Books.objects.all()[:3]
+#         return Books.objects.filter(pk=pk)
+#
+#     @action(methods=['get'], detail=True)
+#     def category(self,request,pk=None):
+#         cats = Category.objects.get(pk=pk)
+#         return Response({'cats': cats.name})
 
 class Training1ViewSet(viewsets.ModelViewSet):
     queryset = Training1.objects.all()
     serializer_class = Training1Serializer
+    permission_classes = (IsAdminOrReadOnly,)
 
 class Training2ViewSet(viewsets.ModelViewSet):
     queryset = Training2.objects.all()
     serializer_class = Training2Serializer
+    permission_classes = (IsAdminOrReadOnly,)
 class Training_manager1ViewSet(viewsets.ModelViewSet):
     queryset = Training_manager1.objects.all()
     serializer_class = Training_manager1Serializer
+    permission_classes = (IsAdminOrReadOnly,)
 class Training_manager2ViewSet(viewsets.ModelViewSet):
     queryset = Training_manager2.objects.all()
     serializer_class = Training_manager2Serializer
+    permission_classes = (IsAdminOrReadOnly,)
 
 def pageNotFound(request,exception):
     return HttpResponseNotFound('<h1>Страница не найдена </h1>')

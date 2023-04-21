@@ -2,9 +2,10 @@ from rest_framework import serializers
 from rest_framework.renderers import JSONRenderer
 from project.models import *
 class BookSerializer(serializers.ModelSerializer):
+    user = serializers.HiddenField(default=serializers.CurrentUserDefault())
     class Meta:
         model = Books
-        fields = ("id","title","author","description","price","photo","category")
+        fields = ('__all__')
 
 class Training1Serializer(serializers.ModelSerializer):
     class Meta:

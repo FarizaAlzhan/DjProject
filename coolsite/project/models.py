@@ -1,7 +1,6 @@
+from django.contrib.auth.models import User
 from django.db import models
 from django.urls import reverse
-
-
 # Create your models here.
 class Training1(models.Model):
     title = models.CharField(max_length=255)
@@ -24,6 +23,7 @@ class Books(models.Model):
     price = models.IntegerField()
     photo = models.ImageField(upload_to="photos/%y/%m/%d/")
     category = models.ForeignKey('Category',on_delete=models.PROTECT)
+    user = models.ForeignKey(User,verbose_name='Пользователь',on_delete=models.CASCADE)
 
 class Category(models.Model):
     name = models.CharField(max_length=100,db_index=True)
