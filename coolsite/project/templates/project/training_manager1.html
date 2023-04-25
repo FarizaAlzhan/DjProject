@@ -17,8 +17,7 @@
   </style>
 
 
-<body background="https://catherineasquithgallery.com/uploads/posts/2021-02/1613710540_84-p-minimalistichnii-fon-dlya-prezentatsii-112.jpg">
-
+<body>
 <br>
 <ul>
     {% for p in tr1 %}
@@ -27,7 +26,7 @@
         <td class="leftcol">
             {% if p.photo %}
             <img src="{{p.photo.url }}"
-        width="250" height="250" >
+        width="250" height="170" >
         {% endif %}
         </td>
         <td valign="top"><h4>{{p.name}}</h4>
