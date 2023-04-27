@@ -1,7 +1,23 @@
+
 {% extends 'project/navbar.html' %}
 {% block content %}
 <title>Обратная связь</title>
-<div class="container">
+<style>
+    #id_name {
+        width: 100%;
+
+    }
+    #id_email {
+         width: 100%;
+    }
+     #id_content {
+         width: 100%;
+    }
+     #id_captcha_1 {
+         width: 100%;
+    }
+</style>
+<div class="container ">
 <form  method = "post" >
     {% csrf_token %}
     <div class="form-error">{{ form.non_field_errors }} </div>
@@ -10,7 +26,11 @@
     <div class="form-error">{{ f.errors }} </div>
 
 {% endfor %}
+
+    
+
     <button type="submit">Отправить</button>
+
     </form>
     </div>
 {% endblock %}

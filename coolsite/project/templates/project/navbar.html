@@ -10,7 +10,6 @@
     <meta charset="UTF-8">
     <link type="text/css" href="{% static 'project/css/style.css' %}" rel="stylesheet" />
     <link type="image/x-icon" href="{% static 'project/images' %}" rel="shortcut icon" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 
 
 <nav class="navbar navbar-expand-lg bg-transparent " >
@@ -34,11 +33,28 @@
                 <hr class="dropdown-divider">
               </li>
                 </ul>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Советы
+            </a>
+            <ul class="dropdown-menu dropdown-menu-dark">
+                 <li>
+            <a class="dropdown-item" href="{% url 'advice1' %}" >Советы по саморазвитию </a>
+          </li>
+          <li>
+            <a class="dropdown-item" href="{% url 'advice2' %}">Советы от психологов </a>
+          </li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+                </ul>
+
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'motivation' %}">Мотивация</a>
+          </li>
+
         <li class="nav-item">
             <a class="nav-link" href="{% url 'aboutUs' %}">О нас</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'contact' %}">Обратная связь</a>
           </li>
         <li class="nav-item">
           <a class="nav-link" href="{% url 'training_manager1' %}">Специалисты</a>
@@ -47,6 +63,9 @@
             <a class="nav-link" href="{% url 'books' %}">Подбор книг</a>
           </li>
           {% if request.user.is_authenticated %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'allEnroll' %}"> Заявки</a>
+          </li>
           <li class="nav-item"  >
             <a class="nav-link" href="{% url 'login' %}" style="color:green"> {{user.username}}</a>
           </li>
@@ -82,22 +101,25 @@
             <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Советы по саморазвитию</a>
+            <a class="nav-link" href="{% url 'advice1' %}">Советы по саморазвитию </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Советы от психологов</a>
+            <a class="nav-link" href="{% url 'advice2' %}">Советы от психологов </a>
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Тренинги
             </a>
             <ul class="dropdown-menu dropdown-menu-dark">
-              <li><a class="dropdown-item"href="{% url 'training1' %}">Саморазвитие</a></li>
-              <li><a class="dropdown-item" href="{% url 'training2' %}">Психология</a></li>
+              <li><a class="dropdown-item" href="{% url 'training1' %}"> Саморазвитие </a></li>
+              <li><a class="dropdown-item" href="{% url 'training2' %}"> Психология </a></li>
               <li>
                 <hr class="dropdown-divider">
               </li>
             </ul>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'contact' %}">Обратная связь</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{% url 'books' %}">Подбор книг</a>
@@ -105,9 +127,7 @@
           <li class="nav-item">
             <a class="nav-link" href="{% url 'aboutUs' %}">О нас</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Связаться</a>
-          </li>
+
 
         </ul>
     </div>
@@ -120,47 +140,7 @@
 {% endblock %}
 </body>
 
-<footer id="footer" class="footer-1">
-<div class="main-footer widgets-dark typo-light">
-<div class="container">
-<div class="row">
 
-<div class="col-xs-12 col-sm-6 col-md-3">
-<div class="widget subscribe no-box">
-<p class="widget-title" style="color:black">SUPPORTME<span></span></p>
-<p style="color:black">Здесь вы всегда можете найти для себя нужное.
-    Записываться на тренинги , узнавать новое.
-    Читать мотивационные посты.
-    Развиваться вместе с нашими специалистами.
-    Сегодняшнее поколение - наше будущее! </p>
-</div>
-</div>
-
-
-<div class="col-xs-12 col-sm-6 col-md-3">
-<div class="widget no-box">
-<h5 class="widget-title" style="color:black">Индивидуальнуая консультация<span></span></h5>
-<a class="btn" href="#." target="_blank">Записаться</a>
-</div>
-</div>
-
-<div class="col-xs-12 col-sm-6 col-md-3">
-
-<div class="widget no-box">
-<h5 class="widget-title" style="color:black">Связаться с нами <span></span></h5>
-
-<p><a href="mailto:supportme@gmail.com" title="glorythemes" style="color:black">supportme@gmail.com</a></p>
-<a style="color:black">87077101707 </a><br>
-<a style="color:black">87077107707 </a>
-<ul class="social-footer2">
-<li class=""><a title="instagram" target="_blank" href="/"><img alt="instagram" width="30" height="30" src="data:image/jpeg;base64,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"></a></li>
-</ul>
-</div>
-</div>
-
-</div>
-</div>
-</div>
 
 <div class="footer-copyright">
 <div class="container">

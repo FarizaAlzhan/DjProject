@@ -1,0 +1,36 @@
+{% extends 'project/navbar.html' %}
+{% block content %}
+ <style type="text/css">
+
+   TD.leftcol {
+    width: 300px; /* Ширина левой колонки с рисунком */
+     }
+      hr {
+    border: none; /* Убираем границу */
+    background-color: green; /* Цвет линии */
+    color: grey; /* Цвет линии для IE6-7 */
+    height: 2px; /* Толщина линии */
+   }
+     body{
+     background-size: 110%;
+     }
+  </style>
+<body background="https://img.freepik.com/premium-photo/flat-lay-of-desk-concept-with-copy-space_23-2148459790.jpg?w=2000">
+<br>
+<h1>Заявки</h1>
+<ul>
+    {% for p in e %}
+
+        <td valign="top"><h6>ФИО: {{p.full_name}}</h6>
+            <p>Возраст: {{p.age}}</p>
+            <p>Адресс: {{p.address}}</p>
+            <p>Номер телефона: {{p.number}}</p>
+        </td>
+    <hr>
+
+
+    {% endfor %}
+
+</ul>
+</body>
+{% endblock %}

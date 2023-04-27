@@ -30,6 +30,16 @@ def index(request):
 #@login_required
 def aboutUs(request):
     return render(request,'project/aboutUs.html')
+def advice1(request):
+    return render(request,'project/advice1.html')
+def advice2(request):
+    return render(request,'project/advice2.html')
+def enroll(request):
+    return render(request,'project/enroll.html')
+def Success(request):
+    return render(request,'project/success.html')
+def motivation(request):
+    return render(request,'project/motivation.html')
 
 class AllTraining1(ListView):
     model = Training1
@@ -39,7 +49,9 @@ class AllTraining1(ListView):
 # def training1(request):
 #     t1 = Training1.objects.all()
 #     return render(request,'project/training1.html',{'t1':t1})
-
+def AllEnroll(request):
+    e = Enroll.objects.all()
+    return render(request,'project/AllEnrolls.html',{'e':e})
 def training_manager1(request):
     tr1 = Training_manager1.objects.all()
     tr2 = Training_manager2.objects.all()
@@ -92,26 +104,16 @@ class AddTrainings1(LoginRequiredMixin, DataMixin,CreateView):
         c_def = self.get_user_context(title="Добавление тренинга")
         return dict(list(context.items()) + list(c_def.items()))
 
-# def addtraining1(request):
-#     if request.method == 'POST':
-#         form = AddTraining1Form(request.POST,request.FILES)
-#         if form.is_valid():
-#             # print(form.cleaned_data)
-#             try:
-#                 # Training1.objects.create(**form.cleaned_data)
-#                 form.save()
-#
-#                 return redirect('training1')
-#             except:
-#                 form.add_error(None,'Ошибка добавления тренинга')
-#     else:
-#         form = AddTraining1Form()
-#     return render(request,'project/addtraining1.html', {'form': form})
-
+class AddEnroll(LoginRequiredMixin, DataMixin,CreateView):
+    form_class = AddEnrollForm
+    template_name = 'project/enroll.html'
+    success_url = reverse_lazy('Success')
+    login_url = reverse_lazy('AddEnroll')
 class RegisterUser(DataMixin,CreateView):
     form_class = RegisterUserForm
     template_name = 'project/register.html'
     success_url = reverse_lazy('login')
+
 
     def get_context_data(self,*,object_list = None, **kwargs):
         context = super().get_context_data(**kwargs)
