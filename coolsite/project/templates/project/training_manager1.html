@@ -1,3 +1,4 @@
+
 {% extends 'project/navbar.html' %}
 {% block content %}
 <style type="text/css">
@@ -17,7 +18,7 @@
   </style>
 
 
-<body>
+
 <br>
 <ul>
     {% for p in tr1 %}
@@ -26,7 +27,7 @@
         <td class="leftcol">
             {% if p.photo %}
             <img src="{{p.photo.url }}"
-        width="250" height="170" >
+        width="250" height="250" >
         {% endif %}
         </td>
         <td valign="top"><h4>{{p.name}}</h4>

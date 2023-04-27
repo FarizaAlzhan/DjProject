@@ -56,6 +56,12 @@ class Motivation(models.Model):
     content = models.TextField()
     author = models.TextField(blank=True)
 
+class Enroll(models.Model):
+    full_name = models.CharField(max_length=255)
+    age = models.CharField(max_length=255)
+    address = models.CharField(max_length=255)
+    number = models.CharField(max_length=255)
+
 def str(self):
         return self.title
 def get_absolute_url(self):
